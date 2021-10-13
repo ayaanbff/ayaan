@@ -11,6 +11,9 @@ color: white;
   align-items: center;
   z-index: 100
 }
+#sw{
+      background-color: #1c1c1c
+}
 #letters{
   width: 50%;
   text-align: center
