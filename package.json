@@ -1,0 +1,21 @@
+{
+  "name": "ayaan",
+  "version": "1.0.0",
+  "description": "Biography",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "ayaan",
+    "ayaanshakoor",
+    "ayaan shakoor"
+  ],
+  "author": "ayaan shakoor",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "firebase": "^9.1.2",
+    "firebase-tools": "^9.20.0"
+  }
+}
