@@ -23,7 +23,7 @@ margin: 1%;
   font-weight: bolder;
   font-family:sans;
   opacity: 0;
-animation: steps(10) vis 5s 2s forwards
+animation: steps(10) vis 5s 5s forwards
 }
 span:hover{
   animation: lrg 1s alternate;
