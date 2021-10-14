@@ -92,8 +92,9 @@ content: '';
   height: auto;
   color:white;
   font-weight:bolder;
-  font-family: sans;
-  padding-left: .5%
+  font-family: Courier;
+  padding-left: .5%;
+  font-size:1.1rem
 }
 #right{
   width: 36%;
