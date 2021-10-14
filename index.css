@@ -129,7 +129,7 @@ content: '';
 #insta{
   color: white;
 /*   font-size: 4rem; */
-animation: pop 2s forwards ease-in-out
+animation: pop 2s 3s forwards ease-in-out
 }
 a{
   margin: 2%
@@ -217,6 +217,7 @@ font-weight: bolder;
   border-bottom:2px solid white
 }
 a:hover{
+  transition:transform .5s ease-in;
   transform: scale(1.3)
 }
 @media(max-width:600px){
