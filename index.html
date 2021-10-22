@@ -7,18 +7,18 @@
     <meta name="description" content="Biography of ayaan shakoor">
     <meta name="keywords" content="Ayaan,ayaan,ayaanshakoor,ayaan shakoor">
     <meta property="og:site_name" content="Ayaan">
-    <meta property="og:url" content="https://ayaan-5c50d.web.app">
-<link rel="mask-icon" href="https://ayaan-5c50d.web.app/last.ico">
-<meta property="og:image" content="https://ayaan-5c50d.web.app/last.ico">
+    <meta property="og:url" content="https://ayaan-shakoor.web.app">
+<link rel="mask-icon" href="https://ayaan-shakoor.web.app/last.ico">
+<meta property="og:image" content="https://ayaan-shakoor.web.app/last.ico">
 <meta property="og:image:type" content="image/x-icon">
-<meta property="og:image:height" content="400">
-<meta property="og:image:width" content="400">
+<meta property="og:image:height" content="200">
+<meta property="og:image:width" content="200">
 <meta property="og:locale" content="en_GB" />
 <meta property="og:type" content="website" />
 <meta property="og:title" content="Ayaan" />
 <meta name="author" content="Ayaan shakoor">
     <link rel="stylesheet" href="index.css">
-    <link rel="shortcut icon" href="https://ayaan-5c50d.web.app/last.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="https://ayaan-shakoor.web.app/last.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- <script defer  src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script> -->
     <!-- <script defer src="https://www.gstatic.com/firebasejs/9.1.2/firebase-analytics.js"></script> -->
@@ -29,26 +29,25 @@
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-analytics.js";
         // import { firestore } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js";
 
-        import {  query,where, doc,deleteDoc,getFirestore, collection, getDocs,addDoc } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
+        import {   doc,setDoc,getFirestore, collection,addDoc } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
         const firebaseConfig = {
-          apiKey: "AIzaSyCucSsx70B9ZalMCZYHw2pQNKvhwzAK8TI",
-          authDomain: "ayaan-5c50d.firebaseapp.com",
-          projectId: "ayaan-5c50d",
-          storageBucket: "ayaan-5c50d.appspot.com",
-          messagingSenderId: "404490931179",
-          appId: "1:404490931179:web:4afecfee788d86922627ae",
-          measurementId: "G-W0W9KXS9RQ"
+    apiKey: "AIzaSyCZldly3sOYzi6fTYsrvXZeYbrRX3Rt3Gk",
+    authDomain: "ayaan-shakoor.firebaseapp.com",
+    projectId: "ayaan-shakoor",
+    storageBucket: "ayaan-shakoor.appspot.com",
+    messagingSenderId: "1079940003778",
+    appId: "1:1079940003778:web:9c4c5b3d489c379e1e485b",
+    measurementId: "G-BM06BS9RYR"
         };
       
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
- 
+ const db = getFirestore(app)
 
         document.getElementById('submit').onclick=()=>{
             if(document.querySelectorAll('#sw')[0].value!=null&&document.querySelectorAll('#sw')[0].value!=''){
-            addDoc(collection(getFirestore(app),'name'),{
-'name':document.querySelectorAll('#sw')[0].value.toString(),
+            setDoc(doc(db,'name',document.querySelectorAll('#sw')[0].value.toString(),),{
 'contact':document.querySelectorAll('#sw')[1].value.toString()
         })
         document.getElementById('ppup').remove()
@@ -137,7 +136,7 @@ o
 <div class="as"><ul><li>sql [mysql,postgressql]</li> <li>nosql [mongodb]</li></ul></div>
 </div>
 <div id="right">
-<img src="https://ayaan-5c50d.web.app/preview.png" id="img"alt="" >
+<img src="https://ayaan-shakoor.web.app/preview.png" id="img"alt="" >
 <div id="sl">kya chahie......</div>
 </div>
     </div>
