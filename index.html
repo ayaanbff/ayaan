@@ -4,6 +4,15 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Biography of ayaan shakoor">
+    <meta name="keywords" content="Ayaan,ayaan,ayaanshakoor,ayaan shakoor">
+    <meta property="og:site_name" content="Ayaan">
+    <meta property="og:url" content="https://ayaan-5c50d.web.app">
+<link rel="mask-icon" href="https://ayaanbff.github.io/ayaan/dwa.ico">
+<meta property="og:image" content="https://ayaanbff.github.io/ayaan/dwa.ico">
+<meta property="og:image:type" content="image/x-icon">
+<meta property="og:image:width" content="400">
+<meta property="og:image:height" content="400">
     <link rel="stylesheet" href="index.css">
     <link rel="shortcut icon" href="https://ayaanbff.github.io/ayaan/dwa.ico" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -16,13 +25,7 @@
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-analytics.js";
         // import { firestore } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js";
 
-        import { getFirestore, collection, getDocs,addDoc } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
-
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        import {  query,where, doc,deleteDoc,getFirestore, collection, getDocs,addDoc } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
         const firebaseConfig = {
           apiKey: "AIzaSyCucSsx70B9ZalMCZYHw2pQNKvhwzAK8TI",
           authDomain: "ayaan-5c50d.firebaseapp.com",
@@ -36,6 +39,8 @@
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
+ 
+
         document.getElementById('submit').onclick=()=>{
             if(document.querySelectorAll('#sw')[0].value!=null&&document.querySelectorAll('#sw')[0].value!=''){
             addDoc(collection(getFirestore(app),'name'),{
@@ -43,11 +48,14 @@
 'contact':document.querySelectorAll('#sw')[1].value.toString()
         })
         document.getElementById('ppup').remove()
+        document.getElementById("lef").classList.add('done')
+        document.getElementById("nav").classList.add('asw')
+   document.styleSheets[0].insertRule("span{animation: steps(10) vis 5s forwards}",0)
         // document.styleSheets.item(0).addRule('*',{'overflow-x':'hidden'})
         // var s= document.createElement('style')
         // s.innerHTML="*{overflow-x:hidden}"
         // document.append(s)
-        document.styleSheets[0].insertRule("*{overflow-x:hidden !important}",0)
+        // document.styleSheets[0].insertRule("*{overflow-x:hidden !important}",0)
             }
             else(
                 alert("please enter you name !!")
@@ -64,6 +72,9 @@
         <div class="nm"><input type="text" style="width: 40%;" placeholder="Any contact info (not necessary)" name="name" id="sw"></div>
         <div class="sm"><button id="submit" type="submit">Submit</button></div>
     </div></div>
+    <div id="mainw">
+    
+    <div id="mainw">
     <div id="nav">
 <div id="letters">
 <span>
@@ -106,7 +117,8 @@ o
 </div>
 
     </div>
-    <div id="mid">
+
+           <div id="mid">
 <div id="lef">
 <div class="as">14 yrs old</div>
 <!-- <div class="as">Thomasian</div> -->
@@ -115,8 +127,9 @@ o
 <div class="as">languages known javascript,bash scripting,html,php & kotlin</div>
 <div class="as">Frameworks known react,node,jquery and ejs </div>
 <div class="as">Styling with css and scss</div>
-<div class="as">Api known stripe,peerjs,socket.io,geolocation,history and webRTC</div>
 <div class="as">Databases  </div>
+<div class="as">Api known stripe,peerjs,socket.io,geolocation,</div>
+<div class="as">history and webRTC</div>
 <div class="as"><ul><li>sql [mysql,postgressql]</li> <li>nosql [mongodb]</li></ul></div>
 </div>
 <div id="right">
@@ -129,6 +142,8 @@ o
 <a href="https://www.facebook.com/profile.php?id=100005093267555" target="_blank"><i id="insta" class="fa fa-facebook"></i></a>
 
     </div>
-    
+ 
+ 
+    </div>
 </body>
 </html>
