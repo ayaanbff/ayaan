@@ -1,12 +1,27 @@
 #mainw{
   display: grid;
   grid-template-columns: 100%;
-  grid-template-rows:5rem 21rem 19em;
-  grid-gap: .5em;
+  grid-template-rows:5rem 21rem 19em 2em 2em;
+  grid-gap: .3em;
   top: 0;
   left: 0;
   height: 100%;
   z-index: 100;
+  scrollbar-width: 0px;
+}
+::-webkit-scrollbar{
+  width: 0px !important;
+}
+.unselectable{
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -ms-user-select: none;
+  -khtml-user-select:none
+}
+body{
+  scrollbar-width: 0px;
 }
 #nav{
   width: 100%;
@@ -89,16 +104,49 @@ span{
   opacity: 0;
 }
 button:hover{
-  border-bottom: 2px solid white;
+animation: hy .5s ease forwards ;
+outline: none !important;
+  }
+  #submit{
+    font-family: monospace;
+    font-size: 1.01rem;
+    cursor: pointer;
+    outline: none !important;
+  }
+  @keyframes hy {
+    10%{
+      background-image: linear-gradient(to left,black 90%,grey 10%);
+    }
+    50%{
+      background-image: linear-gradient(to left,black 60%,grey 1%,grey 40%);
+    }
+    70%{
+      background-image: linear-gradient(to left,black 40%,grey 1%,grey 60%);
+    }
+    90%{
+      background-image: linear-gradient(to left,black 10%,grey 1%,grey 90%);
+      outline: none !important;
+      
+    }
+    100%{
+      background-color: grey
+    }
   }
 @keyframes vis{
   0%{
-    opacity: 0%
+    opacity: 0
   }
   100%{
-    opacity: 100%
+    opacity: 1
   }
 }
+/* #lefi{
+  width: 60% !important;
+  height: 50% !important;
+  position: fixed;
+  top: 0;
+  margin: 0
+} */
 span:hover{
   animation: lrg 1s alternate;
 }
@@ -110,19 +158,22 @@ span:hover{
   }
 }
 #img{
-height: 100%;
+  height: 90%;
   justify-self: end;
-  margin-right: 16%
-
+  margin-right: 16%;
+  align-self:center;
+  border-radius:35px
 }
 #sl{
-  justify-self: end;
+  justify-self:center;
   margin: 5%;
     font-family: monospace;
-  font-size: 1.3rem;
+  font-size: 1.9rem;
   color:black;
   margin-right: 10%;
-  font-weight: bold
+  font-weight: bold;
+  text-align:center;
+  padding-left:18%
 }
 #low{
   width: 100%;
@@ -151,13 +202,27 @@ a{
   margin: 2%
 }
 a:hover{
-  transition:transform .5s ease-in;
-  transform: scale(1.3)
+  animation: ki .5s ease-in backwards;
+}
+@keyframes ki {
+  to{
+  transform: scale(1.3);
+  }
 }
 .oo{
   width: 100%;
   text-align: center;
-  font-family: monospace 
+  font-family: monospace ;
+  animation: down 1.5s ease-in-out forwards;
+}
+@keyframes down{
+0%{
+  transform: translateY(-10000px);
+}
+100%{
+  transform: translateY(0);
+
+}
 }
 .sm{
   width: 100%;
@@ -171,7 +236,7 @@ a:hover{
   justify-content: center
 }
 input::placeholder{
-  color: white
+  color: #b2b2b2 !important
 }
 #ppup{
   position: fixed;
@@ -179,7 +244,7 @@ input::placeholder{
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: black;
+  background-image:linear-gradient(135deg, black 50%,white,grey 40%);
   z-index: 1000;
 /*   opacity: 80%; */
   display: grid;
@@ -187,7 +252,15 @@ input::placeholder{
   grid-template-rows: 60%;
   justify-content:center;
   align-content: center;
-  justify-items: center
+  justify-items: center;
+}
+@keyframes up {
+  0%{
+transform: translateY(1000px);
+  }
+  100%{
+transform: translateY(0);
+  }
 }
 #sw{
   min-height:100%
@@ -201,6 +274,8 @@ input::placeholder{
   color: white;
   display: flex;
   flex-direction: column;
+ animation: up 1s ease-in forwards;
+
 }
 .na div{
   margin-bottom:10%
@@ -226,7 +301,41 @@ font-weight: bolder;
   height: 120%
   
 }
-@media(max-width:600px){
+#msgico{
+  position: absolute !important;
+  bottom: 7%;
+  right: 2%;
+  z-index: 1000;
+  font-size: 30px;
+  color: #ffffff;
+}
+input:focus{
+  outline: none !important;
+}
+@media(max-width:799px){
+  body{
+    overflow-x: hidden !important;
+scrollbar-width:none;
+-ms-overflow-style: none;
+  }
+::-webkit-scrollbar{
+  width: none;
+display: none;
+}
+::-webkit-scrollbar-thumb{
+  width: none;
+  display: none !important;
+  scrollbar-width: none;
+}
+::-webkit-scrollbar-track{
+  width: none;
+  display: none !important;
+}
+
+
+button:focus{
+  outline: none !important;
+}
   #mainw{
   grid-template-rows:5rem 21rem 19em 0 15rem;
   }
@@ -239,6 +348,7 @@ font-weight: bolder;
     font-size:1rem
     
   }
+ 
   #sw{
     min-height:100%
   }
@@ -255,14 +365,26 @@ font-weight: bolder;
     height: 50%
   }
   #sl{
-    margin-right: 0
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
   }
   .na{
     width: 100%;
-    height: max-content
+    height: max-content;
+    border-top: 1px solid white ;
+    border-bottom: 1px solid white ;
+  }
+  @keyframes bd {
+    to{
+    border-top: 1px solid white ;
+
+    }
   }
   #ppup{
     grid-template-columns: 100%;
+    background-image: linear-gradient(black,black );
+    
   }
     #sw{
     width: 60% !important;
@@ -272,6 +394,9 @@ font-weight: bolder;
    button{
     width: 30%;
     height: 25px
+  }
+  input:focus{
+    outline: none !important;
   }
   a{
     margin: 6%
@@ -285,4 +410,66 @@ font-weight: bolder;
   .nm{
     height:23px
   }
+  #righti{
+    visibility: hidden;
+  }
+  a{
+    margin: 4%;
+  }
+}
+#las{
+  display: flex;
+  justify-content: space-around;
+  font-family: sans;
+  color: white;
+  background-color: black;
+  align-items: center;
+  font-weight: bolder;
+
+}
+#sh{
+  width:100%;
+  background-color:black;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  color: white;
+  font-family: sans;
+  
+}
+#sha{
+  width: 80%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-weight: bolder;
+}
+#sha:hover{
+animation: gg .5s ease-in forwards;
+cursor: pointer;
+
+}
+@keyframes gg{
+  to{  
+border:0;
+letter-spacing: 5px;
+  }
+}
+#ch{
+  cursor: pointer;
+}
+#sw,#sw:focus{
+  outline: none !important
+}
+#submit{
+width: 30%;
+height: 40px;
+border-radius: 25px;
+outline: none !important;
+}
+a,#insta,#submit:hover{
+  outline: none !important;
+  -webkit-tap-highlight-color: rgba(0,0,0,0);
 }
