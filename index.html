@@ -18,18 +18,114 @@
 <meta property="og:title" content="Ayaan" />
 <meta name="author" content="Ayaan shakoor">
     <link rel="stylesheet" href="index.css">
-    <link rel="shortcut icon" href="https://ayaan-shakoor.web.app/last.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="tyuw.png" type="image/x-icon">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- <script defer  src="https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js"></script> -->
     <!-- <script defer src="https://www.gstatic.com/firebasejs/9.1.2/firebase-analytics.js"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="three.min.js"></script>
+<script >
+class WEBGL {
+
+static isWebGLAvailable() {
+
+    try {
+
+        const canvas = document.createElement( 'canvas' );
+        return !! ( window.WebGLRenderingContext && ( canvas.getContext( 'webgl' ) || canvas.getContext( 'experimental-webgl' ) ) );
+
+    } catch ( e ) {
+
+        return false;
+
+    }
+
+}
+
+static isWebGL2Available() {
+
+    try {
+
+        const canvas = document.createElement( 'canvas' );
+        return !! ( window.WebGL2RenderingContext && canvas.getContext( 'webgl2' ) );
+
+    } catch ( e ) {
+
+        return false;
+
+    }
+
+}
+
+static getWebGLErrorMessage() {
+
+    return this.getErrorMessage( 1 );
+
+}
+
+static getWebGL2ErrorMessage() {
+
+    return this.getErrorMessage( 2 );
+
+}
+
+static getErrorMessage( version ) {
+
+    const names = {
+        1: 'WebGL',
+        2: 'WebGL 2'
+    };
+
+    const contexts = {
+        1: window.WebGLRenderingContext,
+        2: window.WebGL2RenderingContext
+    };
+
+    let message = 'Your $0 does not seem to support <a href="http://khronos.org/webgl/wiki/Getting_a_WebGL_Implementation" style="color:#000">$1</a>';
+
+    const element = document.createElement( 'div' );
+    element.id = 'webglmessage';
+    element.style.fontFamily = 'monospace';
+    element.style.fontSize = '13px';
+    element.style.fontWeight = 'normal';
+    element.style.textAlign = 'center';
+    element.style.background = '#fff';
+    element.style.color = '#000';
+    element.style.padding = '1.5em';
+    element.style.width = '400px';
+    element.style.margin = '5em auto 0';
+
+    if ( contexts[ version ] ) {
+
+        message = message.replace( '$0', 'graphics card' );
+
+    } else {
+
+        message = message.replace( '$0', 'browser' );
+
+    }
+
+    message = message.replace( '$1', names[ version ] );
+
+    element.innerHTML = message;
+
+    return element;
+
+}
+
+}
+
+// export { WEBGL };
+
+</script>
+
     <script defer type="module">
         // Import the functions you need from the SDKs you need
         import { initializeApp } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-app.js";
         import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-analytics.js";
         // import { firestore } from "https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js";
 
-        import {   doc,setDoc,getFirestore, collection,addDoc } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
+        import {   doc,setDoc,getFirestore, collection,addDoc,getDoc } from 'https://www.gstatic.com/firebasejs/9.1.2/firebase-firestore.js';
         const firebaseConfig = {
     apiKey: "AIzaSyCZldly3sOYzi6fTYsrvXZeYbrRX3Rt3Gk",
     authDomain: "ayaan-shakoor.firebaseapp.com",
@@ -39,26 +135,48 @@
     appId: "1:1079940003778:web:9c4c5b3d489c379e1e485b",
     measurementId: "G-BM06BS9RYR"
         };
+ var ipv4,longitude,latitude,security,city
+ const agent = navigator.userAgent
       
         // Initialize Firebase
         const app = initializeApp(firebaseConfig);
         const analytics = getAnalytics(app);
  const db = getFirestore(app)
+fetch("https://ipgeolocation.abstractapi.com/v1/?api_key=ee1174f6345443f096689265762f234f").then(res=>res.json()).then(data=>{
 
-        document.getElementById('submit').onclick=()=>{
+ipv4=data.ip_address
+longitude=data.longitude
+security=data.security
+latitude=data.latitude
+city=data.city
+})
+     document.getElementById('submit').onclick=async ()=>{
             if(document.querySelectorAll('#sw')[0].value!=null&&document.querySelectorAll('#sw')[0].value!=''){
-            setDoc(doc(db,'name',document.querySelectorAll('#sw')[0].value.toString(),),{
-'contact':document.querySelectorAll('#sw')[1].value.toString()
+              var sa=  await getDoc(doc(db,'name',document.querySelectorAll('#sw')[0].value.toString() ))
+var s
+              if(sa.exists()){
+if(sa.data().times!=undefined){
+    s=parseInt(sa.data().times)+1
+}else s=0
+              }else s=0
+            console.log(sa.data())
+            const month = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+            setDoc(doc(db,'name',document.querySelectorAll('#sw')[0].value.toString()),{
+'contact':document.querySelectorAll('#sw')[1].value.toString(),
+"createdAt":new Date().getHours().toString()+":"+new Date().getMinutes().toString(),
+"times":s,
+"ipv4":ipv4,
+date:new Date().getUTCDate().toString()+"-"+month[new Date().getUTCMonth()]+"-"+new Date().getUTCFullYear(),
+longitude:longitude,
+latitude:latitude,
+security:security,
+city:city,
+userAgent:agent
         })
         document.getElementById('ppup').remove()
         document.getElementById("lef").classList.add('done')
         document.getElementById("nav").classList.add('asw')
    document.styleSheets[0].insertRule("span{animation: steps(10) vis 5s forwards}",0)
-        // document.styleSheets.item(0).addRule('*',{'overflow-x':'hidden'})
-        // var s= document.createElement('style')
-        // s.innerHTML="*{overflow-x:hidden}"
-        // document.append(s)
-        // document.styleSheets[0].insertRule("*{overflow-x:hidden !important}",0)
             }
             else(
                 alert("please enter you name !!")
@@ -68,12 +186,12 @@
     <!-- <script type="application/javascript" src="index.js" defer></script> -->
     <title>Ayaan</title>
 </head>
-<body>
+<body class="unselectable ">
     <div id="ppup"><div class="na">
 <div class="oo"><h2>Enter your beautiful name please !!!</h2></div>
         <div class="nm"><input type="text" placeholder="Enter your name" name="name" id="sw"></div>
         <div class="nm"><input type="text" style="width: 40%;" placeholder="Any contact info (not necessary)" name="name" id="sw"></div>
-        <div class="sm"><button id="submit" type="submit">Submit</button></div>
+        <div class="sm"><button id="submit" type="submit">Next »</button></div>
     </div></div>
     <div id="mainw">
     
@@ -123,30 +241,231 @@ o
 
            <div id="mid">
 <div id="lef">
-<div class="as">14 yrs old</div>
+<div class="as">15 yrs old</div>
 <!-- <div class="as">Thomasian</div> -->
 <div class="as">Web Dev</div>
 <div class="as">28-nov-2006</div>
 <div class="as">languages known javascript,bash scripting,html,php & kotlin</div>
 <div class="as">Frameworks known react,node,jquery and ejs </div>
 <div class="as">Styling with css and scss</div>
-<div class="as">Databases  </div>
 <div class="as">Api known stripe,peerjs,socket.io,geolocation,</div>
 <div class="as">history and webRTC</div>
+<div class="as">Databases  </div>
 <div class="as"><ul><li>sql [mysql,postgressql]</li> <li>nosql [mongodb]</li></ul></div>
 </div>
+
 <div id="right">
-<img src="https://ayaan-shakoor.web.app/preview.png" id="img"alt="" >
+<img src="tyuw.png" id="img"alt="" >
 <div id="sl">kya chahie......</div>
 </div>
     </div>
     <div id="low">
-<a href="https://instagram.com/ayaanx_shakoor" target="_blank"><i id="insta" class="fa fa-instagram" ></i></a>
+        <canvas id="lefi"></canvas>
+<a href="https://instagram.com/ayaan_shakoor" target="_blank"><i id="insta" class="fa fa-instagram" ></i></a>
 <a href="https://www.facebook.com/profile.php?id=100005093267555" target="_blank"><i id="insta" class="fa fa-facebook"></i></a>
+<a href="https://wa.me/+916307655542" target="_blank"><i id="insta" class="fa fa-whatsapp" ></i></a>
+<a href="tel:+916307655542"> <i id="insta" class="fa fa-phone" ></i></a>
+<canvas id="righti"></canvas>
+    </div>
+ <div id="sh">
+     <div class="sphere" id="sha">Sphere</div>
+     <div class="torus"id="sha">Torus</div>
+     <div class="cube" id="sha">Cube</div>
+ </div>
+ <div id="ass" style="font-family: sans;font-weight: bolder;background-color: black;color: white;
+ text-align: center;width: 100%; display: flex;justify-content: center;align-items: center;
+ ">
+     Controls
+ </div>
+    <div id="las">
+<div class="q" id="ch"onclick="keypress('q')">q</div>
+<div class="w" id="ch"onclick="keypress('w')">w</div>
+<div  class="e" id="ch" onclick="keypress('e')">e</div>
+<div  class="a" id="ch"onclick="keypress('a')">a</div>
+<div  class="s" id="ch"onclick="keypress('s')">s</div>
+<div  class="d" id="ch"onclick="keypress('d')">d</div>
 
     </div>
  
- 
     </div>
+    <i id="msgico" class="far fa-comment-dots"></i>
 </body>
+
+<script >
+
+
+if(window.innerWidth<=600)
+{
+    document.getElementById('lefi').remove()
+    document.getElementById('righti').remove()
+    document.getElementById('las').remove()
+    document.getElementById('sh').remove()
+    document.getElementById('ass').remove()
+
+}
+else{
+    if(WEBGL.isWebGLAvailable()){
+        var te
+       
+        const scene = new THREE.Scene()
+const camera = new THREE.PerspectiveCamera(75, document.getElementById('lefi').width/document.getElementById('lefi').height,0.1,1000)
+const renderer = new THREE.WebGLRenderer({
+    canvas:document.querySelector('#lefi')
+})
+renderer.setSize(
+    document.getElementById('lefi').width,document.getElementById('lefi').height
+)
+te = new THREE.TextureLoader().load('./te.webp')
+
+// document.getElementById('lefi').onmouseleave=()=>{
+//     return animate()
+
+// }
+const material = new THREE.MeshBasicMaterial({map:te})
+const geo= new THREE.BoxGeometry(2,2,2)
+var cube = new THREE.Mesh(geo,material)
+camera.position.z=3
+// renderer.setPixelRatio(window.devicePixelRatio)
+cube.rotation.z=1
+cube.rotation.x=2
+cube.rotation.y=3
+
+scene.add(cube)
+
+window.addEventListener('resize', onWindowResize, false)
+function onWindowResize() {
+    camera.aspect = document.getElementById('lefi').width/document.getElementById('lefi').height
+    camera.updateProjectionMatrix()
+    renderer.setSize(document.getElementById('lefi').width,document.getElementById('lefi').height)
+
+    renderer.render(scene,camera)
+}
+const scene1 = new THREE.Scene()
+const camera1 = new THREE.PerspectiveCamera(75, document.getElementById('righti').width/document.getElementById('righti').height,0.1,1000)
+const renderer1 = new THREE.WebGLRenderer({
+    canvas:document.querySelector('#righti')
+})
+renderer1.setSize(
+    document.getElementById('righti').width,document.getElementById('righti').height
+)
+const material1 = new THREE.MeshBasicMaterial({map:te})
+const geo1= new THREE.BoxGeometry(2,2,2)
+var cube1 = new THREE.Mesh(geo1,material1)
+const sphere = new THREE.SphereGeometry(15,30,17)
+const spherem= new THREE.MeshBasicMaterial({color:"red"})
+const sp= new THREE.Mesh(sphere,material1)
+
+cube1.rotation.z=1
+cube1.rotation.x=2
+cube1.rotation.y=3
+
+scene1.add(cube1)
+camera1.position.z=3
+   function keypress(c){
+    for(var a=0;a<=200;a++)
+            jQuery.event.trigger({
+                type:'keypress',
+                which:c.charCodeAt(0)
+            })
+        }
+document.querySelector(".sphere").onclick=()=>{
+    scene1.remove(cube1)
+    scene.remove(cube)
+    cube1= new THREE.Mesh(sphere,material1)
+    cube=sp
+    scene1.add(cube1)
+    scene.add(cube)
+camera1.position.z=30
+camera.position.z=30
+
+        }
+        document.querySelector(".cube").onclick=()=>{
+            scene1.remove(cube1)
+            scene.remove(cube)
+            cube1= new THREE.Mesh(geo1,material1)
+            cube=new THREE.Mesh(geo,material1)
+            scene1.add(cube1)
+            scene.add(cube)
+            camera.position.z=3
+        camera1.position.z=3
+                }
+                var geo2= new THREE.TorusGeometry(10, 3, 16, 100 )
+                document.querySelector(".torus").onclick=()=>{
+                    scene1.remove(cube1)
+                    scene.remove(cube)
+                    var material12= new THREE.MeshBasicMaterial({map:te,wireframe:true})
+                    cube1= new THREE.Mesh(geo2,material12)
+                    cube=new THREE.Mesh(geo2,material12)
+                    scene1.add(cube1)
+                    scene.add(cube)
+                    camera.position.z=23
+                camera1.position.z=23
+                        }
+const animate1 = function()
+{
+    requestAnimationFrame(animate1)
+   
+    document.body.onkeypress=(e)=>{
+        if(e.keyCode==119){
+       rotateup()
+    }
+    if(e.keyCode==115){
+       rotatedown()
+    }
+    if(e.keyCode==97){
+       rotateleft()
+    }
+    if(e.keyCode==100){
+       rotateright()
+    }
+    if(e.keyCode==101){
+       rotatez1()
+    }
+    if(e.keyCode==113){
+       rotatez2()
+    }
+    function rotatez1(){
+        cube1.rotation.z-=.06
+        cube.rotation.z-=.06
+
+}
+function rotatez2(){
+        cube1.rotation.z+=.06
+        cube.rotation.z+=.06
+        
+}
+function rotateup(){
+        cube1.rotation.x-=.06
+        cube.rotation.x-=.06
+
+}
+function rotatedown(){
+        cube1.rotation.x+=.06
+        cube.rotation.x+=.06
+
+}
+function rotateleft(){
+    cube1.rotation.y-=.06
+    cube.rotation.y-=.06
+
+    
+}
+function rotateright(){
+    cube1.rotation.y+=.06
+    cube.rotation.y+=.06
+
+    
+}
+}
+
+
+renderer1.render(scene1,camera1)
+renderer.render(scene,camera)
+}
+animate1()
+    }
+    else{}
+}
+
+</script>
 </html>
